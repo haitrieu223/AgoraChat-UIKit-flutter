@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath 'com.android.tools.build:gradle:8.3.1'
     }
 }
 
@@ -19,9 +19,22 @@ rootProject.allprojects {
     }
 }
 
+subprojects {
+    afterEvaluate { project ->
+        if (project.hasProperty('android')) {
+            project.android {
+                if (namespace == null) {
+                    namespace project.group
+                }
+            }
+        }
+    }
+}
+
 apply plugin: 'com.android.library'
 
 android {
+    namespace "com.ease.em_chat_uikit"
     compileSdkVersion 33
 
     compileOptions {

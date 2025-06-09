@@ -101,108 +101,135 @@ class _ChatInputBarState extends State<ChatInputBar> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(3, 3, 6, 4),
-                child: Offstage(
-                  offstage: !widget.enableVoice,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      InkWell(
-                          child: _currentInputType == _ChatInputType.voice
-                              ? ChatImageLoader.loadImage(
-                                  "input_bar_btn_selected.png",
-                                  width: 36,
-                                  height: 36)
-                              : ChatImageLoader.loadImage(
-                                  "input_bar_speaker.png",
-                                  width: 36,
-                                  height: 36),
-                          onTap: () {
-                            _updateCurrentInputType(_ChatInputType.voice);
-                          }),
-                    ],
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.fromLTRB(3, 3, 6, 4),
+              //   child: Offstage(
+              //     offstage: !widget.enableVoice,
+              //     child: Column(
+              //       mainAxisSize: MainAxisSize.min,
+              //       mainAxisAlignment: MainAxisAlignment.end,
+              //       children: [
+              //         InkWell(
+              //             child: _currentInputType == _ChatInputType.voice
+              //                 ? ChatImageLoader.loadImage(
+              //                     "input_bar_btn_selected.png",
+              //                     width: 36,
+              //                     height: 36)
+              //                 : ChatImageLoader.loadImage(
+              //                     "input_bar_speaker.png",
+              //                     width: 36,
+              //                     height: 36),
+              //             onTap: () {
+              //               _updateCurrentInputType(_ChatInputType.voice);
+              //             }),
+              //       ],
+              //     ),
+              //   ),
+              // ),
               Expanded(
                 child: _currentInputType != _ChatInputType.voice
                     ? _inputWidget()
                     : _voiceWidget(),
               ),
-              () {
-                String? name = AppLocalizations.of(context)?.localeName;
-                final vPadding = name == "zh" ? 8.0 : 10.0;
-                return _currentInputType != _ChatInputType.voice
-                    ? Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 3, 4, 2.5),
-                        child: Offstage(
-                          offstage: !widget.enableMore,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              _showSendBtn
-                                  ? InkWell(
-                                      key: const ValueKey("1"),
-                                      onTap: () {
-                                        widget.onSendBtnTap?.call(widget
-                                            .textEditingController.text
-                                            .trim());
-                                        widget.textEditingController.text = "";
-                                      },
-                                      child: Container(
-                                        padding: EdgeInsets.fromLTRB(
-                                            8, vPadding, 8, vPadding),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          color: ChatUIKit.of(context)
-                                                  ?.theme
-                                                  .inputWidgetSendBtnColor ??
-                                              Colors.blue,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            AppLocalizations.of(context)
-                                                    ?.uikitSend ??
-                                                "Send",
-                                            style: ChatUIKit.of(context)
-                                                    ?.theme
-                                                    .inputWidgetSendBtnStyle ??
-                                                const TextStyle(
-                                                    color: Colors.white),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : InkWell(
-                                      onTap: () {
-                                        widget.focusNode.unfocus();
-                                        widget.moreAction?.call();
-                                        _updateCurrentInputType(
-                                            _ChatInputType.dismiss);
-                                      },
-                                      child: _currentInputType !=
-                                              _ChatInputType.more
-                                          ? ChatImageLoader.loadImage(
-                                              "input_bar_more.png",
-                                              width: 36,
-                                              height: 36,
-                                            )
-                                          : ChatImageLoader.loadImage(
-                                              "input_bar_btn_selected.png",
-                                              width: 35,
-                                              height: 35,
-                                            ),
-                                    ),
-                            ],
-                          ),
-                        ),
-                      )
-                    : Container();
-              }(),
+              const SizedBox(width: 10),
+              InkWell(
+                key: const ValueKey("1"),
+                onTap: () {
+                  widget.onSendBtnTap
+                      ?.call(widget.textEditingController.text.trim());
+                  widget.textEditingController.text = "";
+                },
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(8, 10.0, 8, 10.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color:
+                        ChatUIKit.of(context)?.theme.inputWidgetSendBtnColor ??
+                            Colors.blue,
+                  ),
+                  child: Center(
+                    child: Text(
+                      AppLocalizations.of(context)?.uikitSend ?? "Send",
+                      style: ChatUIKit.of(context)
+                              ?.theme
+                              .inputWidgetSendBtnStyle ??
+                          const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              )
+              // () {
+              //   String? name = AppLocalizations.of(context)?.localeName;
+              //   final vPadding = name == "zh" ? 8.0 : 10.0;
+              //   return _currentInputType != _ChatInputType.voice
+              //       ? Padding(
+              //           padding: const EdgeInsets.fromLTRB(10, 3, 4, 2.5),
+              //           child: Offstage(
+              //             offstage: !widget.enableMore,
+              //             child: Column(
+              //               mainAxisSize: MainAxisSize.min,
+              //               mainAxisAlignment: MainAxisAlignment.end,
+              //               children: [
+              //                 _showSendBtn
+              //                     ? InkWell(
+              //                         key: const ValueKey("1"),
+              //                         onTap: () {
+              //                           widget.onSendBtnTap?.call(widget
+              //                               .textEditingController.text
+              //                               .trim());
+              //                           widget.textEditingController.text = "";
+              //                         },
+              //                         child: Container(
+              //                           padding: EdgeInsets.fromLTRB(
+              //                               8, vPadding, 8, vPadding),
+              //                           decoration: BoxDecoration(
+              //                             borderRadius:
+              //                                 BorderRadius.circular(20),
+              //                             color: ChatUIKit.of(context)
+              //                                     ?.theme
+              //                                     .inputWidgetSendBtnColor ??
+              //                                 Colors.blue,
+              //                           ),
+              //                           child: Center(
+              //                             child: Text(
+              //                               AppLocalizations.of(context)
+              //                                       ?.uikitSend ??
+              //                                   "Send",
+              //                               style: ChatUIKit.of(context)
+              //                                       ?.theme
+              //                                       .inputWidgetSendBtnStyle ??
+              //                                   const TextStyle(
+              //                                       color: Colors.white),
+              //                             ),
+              //                           ),
+              //                         ),
+              //                       )
+              //                     : InkWell(
+              //                         onTap: () {
+              //                           widget.focusNode.unfocus();
+              //                           widget.moreAction?.call();
+              //                           _updateCurrentInputType(
+              //                               _ChatInputType.dismiss);
+              //                         },
+              //                         child: _currentInputType !=
+              //                                 _ChatInputType.more
+              //                             ? ChatImageLoader.loadImage(
+              //                                 "input_bar_more.png",
+              //                                 width: 36,
+              //                                 height: 36,
+              //                               )
+              //                             : ChatImageLoader.loadImage(
+              //                                 "input_bar_btn_selected.png",
+              //                                 width: 35,
+              //                                 height: 35,
+              //                               ),
+              //                       ),
+              //               ],
+              //             ),
+              //           ),
+              //         )
+              //       : Container();
+              // }(),
             ],
           ),
         ),

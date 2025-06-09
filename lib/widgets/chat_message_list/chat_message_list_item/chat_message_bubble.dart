@@ -46,7 +46,7 @@ class ChatMessageBubble extends StatelessWidget {
                 ? ChatUIKit.of(context)?.theme.receiveBubbleColor ??
                     const Color.fromRGBO(242, 242, 242, 1)
                 : ChatUIKit.of(context)?.theme.sendBubbleColor ??
-                    const Color.fromRGBO(0, 65, 255, 1)),
+                    const Color(0xffC0FFFD)),
         borderRadius: BorderRadius.only(
           topLeft: const Radius.circular(10),
           topRight: const Radius.circular(10),

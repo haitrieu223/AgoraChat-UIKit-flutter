@@ -33,7 +33,7 @@ class ChatMessageListTextItem extends ChatMessageListItem {
               ? ChatUIKit.of(context)?.theme.receiveTextStyle ??
                   const TextStyle(color: Colors.black)
               : ChatUIKit.of(context)?.theme.sendTextStyle) ??
-          const TextStyle(color: Colors.white),
+          const TextStyle(color: Colors.black),
     );
 
     return getBubbleWidget(content);
