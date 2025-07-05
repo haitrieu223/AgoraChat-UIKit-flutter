@@ -239,6 +239,8 @@ class _ChatMessagesViewState extends State<ChatMessagesView> {
               moreAction: showMoreItems,
               onTextFieldChanged: (text) {},
               onSendBtnTap: (text) {
+                if (text.isEmpty) return;
+
                 var msg = ChatMessage.createTxtSendMessage(
                     targetId: widget.conversation.id, content: text);
                 msg.chatType = ChatType.values[widget.conversation.type.index];
@@ -496,7 +498,8 @@ class _ChatMessagesViewState extends State<ChatMessagesView> {
     }).then((value) async {
       if (value == true) {
         _startTimer();
-        await _audioRecorder.start(const RecordConfig(),path: await getRecordingPath());
+        await _audioRecorder.start(const RecordConfig(),
+            path: await getRecordingPath());
       } else {
         if (!isRequest) {
           widget.onError?.call(ChatUIKitError.toChatError(
