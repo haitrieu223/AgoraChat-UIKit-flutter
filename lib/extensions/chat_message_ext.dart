@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 
 import 'package:agora_chat_uikit/agora_chat_uikit.dart';
-import 'package:intl/intl.dart';
 
 extension ChatMessageExt on ChatMessage {
   String summary(BuildContext context) {
@@ -41,16 +40,6 @@ extension ChatMessageExt on ChatMessage {
   }
 
   String get createTs {
-    final dateString = TimeTool.timeStrByMs(serverTime);
-    final dateTime = toDate(dateString);
-    return formatDate(dateTime);
-  }
-
-  DateTime toDate(String date) {
-    return DateFormat("yyyy/MM/dd HH:mm").parse(date);
-  }
-
-  String formatDate(DateTime date) {
-    return DateFormat("MM/dd HH:mm").format(date);
+    return TimeTool.timeStrByMs(serverTime);
   }
 }

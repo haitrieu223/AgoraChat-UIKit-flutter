@@ -9,15 +9,10 @@ class TimeTool {
     DateTime now = DateTime.now();
     DateTime dateToCheck = DateTime.fromMillisecondsSinceEpoch(ms);
     if (now.year == dateToCheck.year) {
-      if (now.month == dateToCheck.month) {
-        if (now.day == dateToCheck.day) {
-          return TimeType.today;
-        } else {
-          return TimeType.month;
-        }
-      } else {
-        return TimeType.year;
+      if (now.month == dateToCheck.month && now.day == dateToCheck.day) {
+        return TimeType.today;
       }
+      return TimeType.month;
     } else {
       return TimeType.year;
     }
