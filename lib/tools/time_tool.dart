@@ -1,8 +1,6 @@
-enum TimeType {
-  today,
-  month,
-  year,
-}
+import 'package:intl/intl.dart';
+
+enum TimeType { today, month, year }
 
 class TimeTool {
   static TimeType _timeType(int ms) {
@@ -29,16 +27,13 @@ class TimeTool {
     String ret = "";
     switch (type) {
       case TimeType.today:
-        ret =
-            "${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}";
+        ret = DateFormat('h:mma').format(date);
         break;
       case TimeType.month:
-        ret =
-            "${date.month.toString().padLeft(2, '0')}/${date.day.toString().padLeft(2, '0')} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}";
+        ret = DateFormat('MM/dd h:mma').format(date);
         break;
       case TimeType.year:
-        ret =
-            "${date.year.toString()}/${date.month.toString().padLeft(2, '0')}/${date.day.toString().padLeft(2, '0')} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}";
+        ret = DateFormat('yyyy/MM/dd h:mma').format(date);
         break;
     }
     return ret;
